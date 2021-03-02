@@ -1,8 +1,9 @@
+
 .App {
-  background-color: #F1F2F4;
+  margin: 0;
 }
 
-.App-header {
+/* .App-header {
   background-color: #FFB113;
   min-height: 5vh;
   display: flex;
@@ -11,7 +12,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 
 /* 
