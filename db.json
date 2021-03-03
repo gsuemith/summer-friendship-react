@@ -1,0 +1,28 @@
+{
+  "parent": [
+    {
+      "id": 1000,
+      "username": "jsmith",
+      "password": "password",
+      "familyName": "Smith",
+      "name": "Jean Smith",
+      "children": [2000]
+    }
+  ],
+  "child": [
+    {
+      "id": 2000,
+      "username": "jim",
+      "password": "password",
+      "name": "Jim Smith"
+    }
+  ],
+  "director": [
+    {
+      "id": 1,
+      "name": "Garrick Suemith",
+      "username": "webmaster",
+      "password": "password"
+    }
+  ]
+}
