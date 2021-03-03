@@ -6,7 +6,15 @@
       "password": "password",
       "familyName": "Smith",
       "name": "Jean Smith",
-      "children": [2000]
+      "children": [
+        2000
+      ]
+    },
+    {
+      "username": "asdfdf",
+      "password": "adfsdf",
+      "name": "erfgwerf",
+      "id": 1001
     }
   ],
   "child": [
@@ -15,6 +23,12 @@
       "username": "jim",
       "password": "password",
       "name": "Jim Smith"
+    },
+    {
+      "username": "asdfdf",
+      "password": "adfsdf",
+      "name": "erfgwerf",
+      "id": 2001
     }
   ],
   "director": [

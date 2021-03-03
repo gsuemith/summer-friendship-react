@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const URL = "http://localhost:5000"
 
@@ -27,6 +28,13 @@ function CreateAccount() {
       name: formValues.name,
     }
 
+    axios.post(`${URL}/${formValues.type}`, newUser)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log("User account not created:", err)
+      })
     console.log(newUser);
   }
 
