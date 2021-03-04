@@ -13,16 +13,18 @@ const initialForm = {
   parentUsername: '',
 }
 
+const initialErrors = {
+  email: "",
+  password: "",
+  terms: ""
+}
+
 function CreateAccount() {
   const [formValues, setFormValues] = useState(initialForm);
   const [disabled, setDisabled] = useState(true);
   const [parentUsernames, setParentUsernames] = useState([]);
   const [childUsernames, setChildUsernames] = useState([]);
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    terms: ""
-  });
+  const [errors, setErrors] = useState(initialErrors);
 
   //get list of usernames;
   useEffect(() => {
@@ -55,6 +57,12 @@ function CreateAccount() {
   const onChange = evt => {
     const { name, value } = evt.target;
 
+    if(name === 'type'){
+      setFormValues({...initialForm, type: value});
+      setErrors(initialErrors)
+      return;
+    }
+
     let schema = formValues.type === 'parent' 
       ? parentSchema([], [...parentUsernames, ...childUsernames]) 
       : childSchema(parentUsernames, [...parentUsernames, ...childUsernames])
@@ -83,6 +91,11 @@ function CreateAccount() {
       password: formValues.password,
       name: formValues.name,
     }
+
+    axios.get(`${URL}/parent?username=${formValues.parentUsername}`)
+      .then(res => {
+        console.log(res);
+      })
 
     axios.post(`${URL}/${formValues.type}`, newUser)
       .then(res => {

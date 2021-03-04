@@ -4,22 +4,7 @@
       "id": 1000,
       "username": "jsmith",
       "password": "password",
-      "name": "Jean Smith",
-      "children": [
-        2000
-      ]
-    },
-    {
-      "username": "parentdsakfj;lkdsf",
-      "password": "asfsdafa",
-      "name": "asdf",
-      "id": 1001
-    },
-    {
-      "username": "asdfasdfasdfasdf",
-      "password": "asdfdfasfd",
-      "name": "Garrick Suemith",
-      "id": 1002
+      "name": "Jean Smith"
     }
   ],
   "child": [
@@ -27,13 +12,8 @@
       "id": 2000,
       "username": "jim",
       "password": "password",
-      "name": "Jim Smith"
-    },
-    {
-      "username": "asdfasdfasdfasdf",
-      "password": "asdfdfasfd",
-      "name": "Garrick Suemith",
-      "id": 2001
+      "name": "Jim Smith",
+      "parentId": 1000
     }
   ],
   "director": [
