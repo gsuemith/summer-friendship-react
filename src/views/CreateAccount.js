@@ -20,6 +20,9 @@ const initialErrors = {
   terms: ""
 }
 
+const bcrypt = require('bcryptjs');
+const saltRounds = 10;
+
 function CreateAccount() {
   const [formValues, setFormValues] = useState(initialForm);
   const [disabled, setDisabled] = useState(true);
@@ -91,7 +94,6 @@ function CreateAccount() {
     
     const newUser = {
       username: formValues.username,
-      password: formValues.password,
       name: formValues.name,
     }
 
@@ -102,14 +104,22 @@ function CreateAccount() {
           newUser.parentId = parent.id;
         }
 
-        axios.post(`${URL}/${formValues.type}`, newUser)
-          .then(res => {
-            console.log(res.data)
-            history.push('/login')
-          })
-          .catch(err => {
-            console.log("User account not created:", err)
-          })
+        //hash password
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+          bcrypt.hash(formValues.password, salt, (err, hash) => {
+            newUser.password = hash;
+            
+            axios.post(`${URL}/${formValues.type}`, newUser)
+              .then(res => {
+                console.log(res.data)
+                history.push('/login')
+              })
+              .catch(err => {
+                console.log("User account not created:", err)
+              })
+          });
+        });
+
       })
       .catch(err => {
         console.log("User account not created:", err)

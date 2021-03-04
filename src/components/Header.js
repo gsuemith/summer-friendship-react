@@ -20,7 +20,7 @@ function Header() {
   return (
     
     <AppHeader>
-      <div></div>
+      <Link to="/">Home</Link>
       <nav>
         <Link to="/login">Log In</Link>
         <Link to="/account/create">Sign Up</Link>
