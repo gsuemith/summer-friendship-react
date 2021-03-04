@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const URL = "http://localhost:5000"
@@ -8,10 +8,31 @@ const initialForm = {
   name: '',
   username: '',
   password: '',
+  parentUsername: '',
 }
 
 function CreateAccount() {
   const [formValues, setFormValues] = useState(initialForm);
+  const [parentUsernames, setParentUsernames] = useState([]);
+  const [childUsernames, setChildUsernames] = useState([]);
+
+  //get list of usernames;
+  useEffect(() => {
+    axios.all([
+      axios.get(`${URL}/parent`),
+      axios.get(`${URL}/child`)
+    ])
+    .then(res => {
+      setParentUsernames(
+        res[0].data.map(obj => obj.username)
+      )
+      setChildUsernames(
+        res[1].data.map(obj => obj.username)
+      )
+    })
+
+    
+  }, [])
 
   const onChange = evt => {
     const { name, value } = evt.target;
@@ -21,7 +42,7 @@ function CreateAccount() {
 
   const onSubmit = evt => {
     evt.preventDefault();
-
+    
     const newUser = {
       username: formValues.username,
       password: formValues.password,
@@ -42,7 +63,7 @@ function CreateAccount() {
     <>
       <h2>Create Account</h2>
       <form onSubmit={onSubmit}>
-        <label for="type">
+        <label htmlFor="type">
           Account Type:
           <select 
             name="type" 
@@ -54,7 +75,7 @@ function CreateAccount() {
             <option value="child">Child</option>
           </select>
         </label>
-        <label for="name">
+        <label htmlFor="name">
           Name:
           <input 
             type="text" 
@@ -63,7 +84,7 @@ function CreateAccount() {
             value={formValues.name}
           />
         </label>
-        <label for="username">
+        <label htmlFor="username">
           User Name:
           <input 
             type="text" 
@@ -72,13 +93,22 @@ function CreateAccount() {
             value={formValues.username}
           />
         </label>
-        <label for="password">
+        <label htmlFor="password">
           Password:
           <input 
-            type="text" 
+            type="password" 
             name="password"
             onChange={onChange}
             value={formValues.password}
+          />
+        </label>
+        <label htmlFor="parentUsername">
+          Enter your parent's username:
+          <input 
+            type="password" 
+            name="parentUsername"
+            onChange={onChange}
+            value={formValues.parentUsername}
           />
         </label>
         <button>Sign Up</button>

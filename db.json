@@ -4,16 +4,15 @@
       "id": 1000,
       "username": "jsmith",
       "password": "password",
-      "familyName": "Smith",
       "name": "Jean Smith",
       "children": [
         2000
       ]
     },
     {
-      "username": "asdfdf",
-      "password": "adfsdf",
-      "name": "erfgwerf",
+      "username": "parentdsakfj;lkdsf",
+      "password": "asfsdafa",
+      "name": "asdf",
       "id": 1001
     }
   ],
@@ -23,12 +22,6 @@
       "username": "jim",
       "password": "password",
       "name": "Jim Smith"
-    },
-    {
-      "username": "asdfdf",
-      "password": "adfsdf",
-      "name": "erfgwerf",
-      "id": 2001
     }
   ],
   "director": [
