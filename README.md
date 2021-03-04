@@ -1,3 +1,6 @@
+# About
+Summer youth program's scheduling, registration, and social platform
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
