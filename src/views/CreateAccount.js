@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import * as yup from 'yup'
+import { parentSchema, childSchema } from '../validation/createAccountSchema'
 
 const URL = "http://localhost:5000"
 
@@ -13,8 +15,14 @@ const initialForm = {
 
 function CreateAccount() {
   const [formValues, setFormValues] = useState(initialForm);
+  const [disabled, setDisabled] = useState(true);
   const [parentUsernames, setParentUsernames] = useState([]);
   const [childUsernames, setChildUsernames] = useState([]);
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    terms: ""
+  });
 
   //get list of usernames;
   useEffect(() => {
@@ -34,8 +42,35 @@ function CreateAccount() {
     
   }, [])
 
+  //submit disabled
+  useEffect(() => {
+    let schema = formValues.type === 'parent' 
+      ? parentSchema([], [...parentUsernames, ...childUsernames]) 
+      : childSchema(parentUsernames, [...parentUsernames, ...childUsernames])
+
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
+    
+  }, [formValues])
+
   const onChange = evt => {
     const { name, value } = evt.target;
+
+    let schema = formValues.type === 'parent' 
+      ? parentSchema([], [...parentUsernames, ...childUsernames]) 
+      : childSchema(parentUsernames, [...parentUsernames, ...childUsernames])
+
+    yup.reach(schema, name)
+      .validate(value)
+      .then(valid => {
+        setErrors({
+          ...errors, [name]: ""
+        });
+      })
+      .catch(err => {
+        setErrors({
+          ...errors, [name]: err.errors[0]
+        });
+      })
 
     setFormValues({...formValues, [name]: value})
   }
@@ -65,6 +100,7 @@ function CreateAccount() {
       <form onSubmit={onSubmit}>
         <label htmlFor="type">
           Account Type:
+          <span>{errors.type}</span>
           <select 
             name="type" 
             onChange={onChange}
@@ -72,46 +108,61 @@ function CreateAccount() {
           >
             <option value="">---Who are you?---</option>
             <option value="parent">Parent</option>
-            <option value="child">Child</option>
+            <option value="child">Youth</option>
           </select>
         </label>
-        <label htmlFor="name">
-          Name:
-          <input 
-            type="text" 
-            name="name"
-            onChange={onChange}
-            value={formValues.name}
-          />
-        </label>
-        <label htmlFor="username">
-          User Name:
-          <input 
-            type="text" 
-            name="username"
-            onChange={onChange}
-            value={formValues.username}
-          />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input 
-            type="password" 
-            name="password"
-            onChange={onChange}
-            value={formValues.password}
-          />
-        </label>
-        <label htmlFor="parentUsername">
-          Enter your parent's username:
-          <input 
-            type="password" 
-            name="parentUsername"
-            onChange={onChange}
-            value={formValues.parentUsername}
-          />
-        </label>
-        <button>Sign Up</button>
+
+        {
+          formValues.type !== '' &&
+          <div>
+            <label htmlFor="name">
+              Name:
+              <span>{errors.name}</span>
+              <input 
+                type="text" 
+                name="name"
+                onChange={onChange}
+                value={formValues.name}
+              />
+            </label>
+            <label htmlFor="username">
+              User Name:
+              <span>{errors.username}</span>
+              <input 
+                type="text" 
+                name="username"
+                onChange={onChange}
+                value={formValues.username}
+              />
+            </label>
+            <label htmlFor="password">
+              Password:
+              <span>{errors.password}</span>
+              <input 
+                type="password" 
+                name="password"
+                onChange={onChange}
+                value={formValues.password}
+              />
+            </label>
+          </div>
+        }
+
+        { 
+          formValues.type === 'child' &&
+          <label htmlFor="parentUsername">
+            Enter your parent's username:
+            <span>{errors.parentUsername}</span>
+            <input 
+              type="password" 
+              name="parentUsername"
+              onChange={onChange}
+              value={formValues.parentUsername}
+            />
+          </label>
+        }
+
+        <button disabled={disabled}>Sign Up</button>
       </form>
     </>
   )

@@ -14,6 +14,12 @@
       "password": "asfsdafa",
       "name": "asdf",
       "id": 1001
+    },
+    {
+      "username": "asdfasdfasdfasdf",
+      "password": "asdfdfasfd",
+      "name": "Garrick Suemith",
+      "id": 1002
     }
   ],
   "child": [
@@ -22,6 +28,12 @@
       "username": "jim",
       "password": "password",
       "name": "Jim Smith"
+    },
+    {
+      "username": "asdfasdfasdfasdf",
+      "password": "asdfdfasfd",
+      "name": "Garrick Suemith",
+      "id": 2001
     }
   ],
   "director": [
