@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import * as yup from 'yup'
 import { parentSchema, childSchema } from '../validation/createAccountSchema'
@@ -26,6 +27,8 @@ function CreateAccount() {
   const [childUsernames, setChildUsernames] = useState([]);
   const [errors, setErrors] = useState(initialErrors);
 
+  let history = useHistory();
+
   //get list of usernames;
   useEffect(() => {
     axios.all([
@@ -52,7 +55,7 @@ function CreateAccount() {
 
     schema.isValid(formValues).then(valid => setDisabled(!valid))
     
-  }, [formValues])
+  }, [formValues, childUsernames, parentUsernames])
 
   const onChange = evt => {
     const { name, value } = evt.target;
@@ -94,17 +97,25 @@ function CreateAccount() {
 
     axios.get(`${URL}/parent?username=${formValues.parentUsername}`)
       .then(res => {
-        console.log(res);
-      })
+        let parent = res.data[0];
+        if(parent){
+          newUser.parentId = parent.id;
+        }
 
-    axios.post(`${URL}/${formValues.type}`, newUser)
-      .then(res => {
-        console.log(res)
+        axios.post(`${URL}/${formValues.type}`, newUser)
+          .then(res => {
+            console.log(res.data)
+            history.push('/login')
+          })
+          .catch(err => {
+            console.log("User account not created:", err)
+          })
       })
       .catch(err => {
         console.log("User account not created:", err)
       })
-    console.log(newUser);
+
+    
   }
 
   return (

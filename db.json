@@ -5,6 +5,18 @@
       "username": "jsmith",
       "password": "password",
       "name": "Jean Smith"
+    },
+    {
+      "username": "gsuemith",
+      "password": "password",
+      "name": "Garrick Suemith",
+      "id": 1001
+    },
+    {
+      "username": "gsuemith1",
+      "password": "password",
+      "name": "Garrick Suemith",
+      "id": 1002
     }
   ],
   "child": [
@@ -14,6 +26,20 @@
       "password": "password",
       "name": "Jim Smith",
       "parentId": 1000
+    },
+    {
+      "username": "garrick",
+      "password": "password",
+      "name": "Garrick Suemith",
+      "parentId": 1001,
+      "id": 2001
+    },
+    {
+      "username": "garrick1",
+      "password": "password",
+      "name": "Garrick Suemith",
+      "parentId": 1000,
+      "id": 2002
     }
   ],
   "director": [

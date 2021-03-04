@@ -1,11 +1,12 @@
 import React from 'react'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import Header from './components/Header'
 import AccountNav from './components/AccountNav'
 
 import Home from './views/Home'
 import Register from './views/CreateAccount'
+import Login from './views/Login'
 
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/account/create">
           <Register/>
         </Route>
+        <Route path="/login" component={Login}/>
         <Route path="/">
           <Home/>
         </Route>
