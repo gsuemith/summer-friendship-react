@@ -1,6 +1,23 @@
 # About
 Summer youth program's scheduling, registration, and social platform
 
+### MVP
+
+Parents and youth will be able to create separate accounts to interact with eachother on the platform
+
+Parents/Guardians can complete registration forms and grant permissions and waivers for their children.  
+
+Youth can sign up for upcoming trips, see upcoming events.
+
+Admin can create, schedule, and promote events.  
+
+All users can share posts and comments.  Comments and messages are transparent to parents and admins.
+
+### Stretch
+
+Parents can pay program and trip fees online.
+
+Parents can "docusign" documents.
 
 ## Available Scripts
 
